@@ -1,4 +1,3 @@
-	
 
 package tn.esprit.spring;
 
@@ -14,13 +13,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
 import tn.esprit.spring.entities.Contrat;
-import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.repository.ContratRepository;
 import tn.esprit.spring.repository.EmployeRepository;
 import tn.esprit.spring.services.ContratService;
@@ -30,7 +29,7 @@ import tn.esprit.spring.services.IEmployeService;
 @SpringBootTest
 public class ContratServiceImplTest {
 
-	//private static final org.apache.logging.log4j.Logger l= LogManager.getLogger(ContratServiceImplTest.class);
+	private static final org.apache.logging.log4j.Logger l= LogManager.getLogger(ContratServiceImplTest.class);
 	
 	@Autowired
 	ContratService cs;
@@ -42,39 +41,69 @@ public class ContratServiceImplTest {
 	EmployeRepository employeRepository;
 	
 
+	/*
 	@Test(timeout =2000)
 	public void testgetContratById() {
 	Contrat contrat = cs.getContratById(1);
 	assertNotNull(contrat.getTypeContrat());
-	//l.info("le contrat est :"+ contrat);
+	l.debug("le contrat est :", contrat);
 
 	}
-	
+*/
 	@Test(timeout =2000)
 	public void testgetAllContrats() {
-		List<Contrat> contrats = (List<Contrat>) contratRepository.findAll();
+		List<Contrat> contrats = contratRepository.findAll();
 		assertThat(contrats).size().isGreaterThan(0);
-	//	l.info("la liste des contrats est :"+ contrats);
+		l.info("la liste des contrats est :", contrats);
 	}
 
 
 	@Test(timeout =2000)
-	public void testajouterContrat() throws ParseException , java.text.ParseException{
+	public void testajouterContrat() throws ParseException {
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	Date date = dateFormat.parse("2021-06-09");
 	Contrat u = new Contrat(4, date,"CDD",200);
 	iemployeservice.ajouterContrat(u);
-	//l.info("ajout avec succés de contrat: " + u.getReference());
+	l.info("ajout avec succés de contrat: " , u.getReference());
 	}
 
+	/*@Test
+	public void testajouterContrat() {
+	int nbr = contratrepository.countcont() ;
+	Contrat c = new Contrat(1, "typ1", 2);
+	iemployeservice.ajouterContrat(c);
 	
+	assertEquals(nbr+1, contratrepository.countcont());
+ }*/
+	
+	/* @Test
+	public void testaffecterEmployeDuDepartement() {
+		iemployeservice.affecterEmployeADepartement(15,1);
+		Departement dep = deptRepoistory.findById(1).get();
+		Employe employe = employerepository.findById(15).get();
+		
+		int id1 = employe.getDepartements().get(0).getId();
+	
+				assertEquals(1,id1);
+			}*/
+	
+	/*
+	 @Test
+		public void deleteAllContratJPQL() {
+			
+		iemployeservice.deleteAllContratJPQL() ;
+		assertNull(contratrepository.findAll() );
+				
+	 }
+	
+	*/
 	@Test(timeout =3000)
-	public void testretrieveParDateJpql() throws ParseException, java.text.ParseException {
+	public void testretrieveParDateJpql() throws ParseException {
 	SimpleDateFormat date= new SimpleDateFormat("yyyy-MM-dd");
 	Date date1= date.parse("2020-01-01");
 	Date date2= date.parse("2021-12-30");
 	cs.retrieveParDateJpql(date1,date2);
-	//l.info("test retrieveParDateJpql avec succes");
+	l.info("test retrieveParDateJpql avec succes");
 	}
 	
 
@@ -90,16 +119,12 @@ public class ContratServiceImplTest {
 		  c.setReference(iemployeservice.ajouterContrat(c)); 
 		  
 		  assertEquals(c, cs.getContratById(c.getReference()));
-		 // l.info("ajout avec succés de contrat: " + c.getReference());
+		 l.info("ajout avec succés de contrat: " , c.getReference());
 		  cs.deleteContratById(c.getReference());
-		 // l.info("delete contrat: " + c.getReference());  
+		 l.info("delete contrat: " , c.getReference());  
 		  assertNull(cs.getContratById(c.getReference()));
-		 // l.info("test delete success");
+		 l.info("test delete success");
 	}
-	
-
-
 	
 	
 }
-
