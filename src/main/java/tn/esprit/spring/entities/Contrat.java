@@ -25,10 +25,13 @@ public class Contrat implements Serializable {
 	
 	private String typeContrat;
 	
-	private float salaire;
+	
+	private float telephone;
 	
 	@OneToOne
 	private Employe employe;
+
+	private float salaire;
 
 	public Contrat() {
 		super();
@@ -39,8 +42,16 @@ public class Contrat implements Serializable {
 		this.typeContrat = typeContrat;
 		this.salaire = salaire;
 	}
+	
+	public Contrat(float telephone, String typeContrat, float salaire) {
+		this.telephone = telephone;
+		this.typeContrat = typeContrat;
+		this.salaire = salaire;
+	}
 
 
+
+	
 
 	public Contrat(int reference, Date dateDebut, String typeContrat, float salaire) {
 		super();
@@ -89,6 +100,17 @@ public class Contrat implements Serializable {
 	public void setEmploye(Employe employe) {
 		this.employe = employe;
 	}
+
+	public float getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(float telephone) {
+		this.telephone = telephone;
+	}
+
+
+	
 	
 	
 }

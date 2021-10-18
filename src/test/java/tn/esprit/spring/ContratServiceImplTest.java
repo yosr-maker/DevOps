@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 import tn.esprit.spring.entities.Contrat;
+import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.repository.ContratRepository;
 import tn.esprit.spring.repository.EmployeRepository;
 import tn.esprit.spring.services.ContratService;
@@ -40,16 +41,7 @@ public class ContratServiceImplTest {
 	@Autowired
 	EmployeRepository employeRepository;
 	
-
 	/*
-	@Test(timeout =2000)
-	public void testgetContratById() {
-	Contrat contrat = cs.getContratById(1);
-	assertNotNull(contrat.getTypeContrat());
-	l.debug("le contrat est :", contrat);
-
-	}
-*/
 	@Test(timeout =2000)
 	public void testgetAllContrats() {
 		List<Contrat> contrats = contratRepository.findAll();
@@ -57,46 +49,52 @@ public class ContratServiceImplTest {
 		l.info("la liste des contrats est :", contrats);
 	}
 
-
+*/
+	/*
 	@Test(timeout =2000)
 	public void testajouterContrat() throws ParseException {
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	Date date = dateFormat.parse("2021-06-09");
-	Contrat u = new Contrat(4, date,"CDD",200);
+	Contrat u = new Contrat(1, date,"CDD",200);
 	iemployeservice.ajouterContrat(u);
 	l.info("ajout avec succés de contrat: " , u.getReference());
 	}
 
-	/*@Test
-	public void testajouterContrat() {
-	int nbr = contratrepository.countcont() ;
-	Contrat c = new Contrat(1, "typ1", 2);
-	iemployeservice.ajouterContrat(c);
-	
-	assertEquals(nbr+1, contratrepository.countcont());
- }*/
+*/
 	
 	/* @Test
-	public void testaffecterEmployeDuDepartement() {
-		iemployeservice.affecterEmployeADepartement(15,1);
-		Departement dep = deptRepoistory.findById(1).get();
-		Employe employe = employerepository.findById(15).get();
+	public void testaffecterContratAEmploye() {
+		iemployeservice.affecterContratAEmploye(9,1);
+		Employe emp = employeRepository.findById(1).get();
+		Contrat contrat = contratRepository.findById(9).get();
 		
-		int id1 = employe.getDepartements().get(0).getId();
+		int id =contrat.getEmploye().get(0).getReference();
 	
-				assertEquals(1,id1);
-			}*/
+				assertEquals(1,id);
+			}
+	*/
 	
-	/*
+	/*@Test
+	public void testdeleteContratById() {
+	
+				Contrat c = new Contrat(1, "CDD", 2);
+				iemployeservice.ajouterContrat(c);
+				iemployeservice.deleteContratById(c.getReference());
+				assertNull(employeRepository.findById(c.getReference()));
+}
+
+	*/
+/*
 	 @Test
 		public void deleteAllContratJPQL() {
 			
 		iemployeservice.deleteAllContratJPQL() ;
-		assertNull(contratrepository.findAll() );
+		assertNull(contratRepository.findAll() );
 				
 	 }
-	
 	*/
+	/*
+
 	@Test(timeout =3000)
 	public void testretrieveParDateJpql() throws ParseException {
 	SimpleDateFormat date= new SimpleDateFormat("yyyy-MM-dd");
@@ -106,25 +104,7 @@ public class ContratServiceImplTest {
 	l.info("test retrieveParDateJpql avec succes");
 	}
 	
-
-
-	@Test(timeout = 2000)
-	public void testDeleteContrat() {
-		
-		  Contrat c = new Contrat();
-		  c.setDateDebut(new Date()); 
-		  c.setSalaire(3000); 
-		  c.setTypeContrat("CDI"); 
-		  
-		  c.setReference(iemployeservice.ajouterContrat(c)); 
-		  
-		  assertEquals(c, cs.getContratById(c.getReference()));
-		 l.info("ajout avec succés de contrat: " , c.getReference());
-		  cs.deleteContratById(c.getReference());
-		 l.info("delete contrat: " , c.getReference());  
-		  assertNull(cs.getContratById(c.getReference()));
-		 l.info("test delete success");
-	}
 	
+	*/
 	
 }
