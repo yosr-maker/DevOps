@@ -9,7 +9,7 @@ public interface IDepartementService {
 	
 	
 	
-	public int ajouterDepartement(Departement dept) ;
+	public void ajouterDepartement(Departement dept) ;
 	public void affecterDepartementAEntreprise(int depId, int entrepriseId);
 		
 
