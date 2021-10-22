@@ -1,7 +1,7 @@
 
 package tn.esprit.spring;
 
-import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.LogManager;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,14 +13,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.runner.RunWith;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
 import tn.esprit.spring.entities.Contrat;
-import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.repository.ContratRepository;
 import tn.esprit.spring.repository.EmployeRepository;
 import tn.esprit.spring.services.ContratService;
@@ -30,8 +30,9 @@ import tn.esprit.spring.services.IEmployeService;
 @SpringBootTest
 public class ContratServiceImplTest {
 
-	private static final org.apache.logging.log4j.Logger l= LogManager.getLogger(ContratServiceImplTest.class);
-	
+	//private static final org.apache.logging.log4j.Logger l= LogManager.getLogger(ContratServiceImplTest.class);
+
+Logger logger = LoggerFactory.getLogger(ContratServiceImplTest.class);
 	@Autowired
 	ContratService cs;
 	@Autowired 
@@ -57,7 +58,7 @@ public class ContratServiceImplTest {
 	Date date = dateFormat.parse("2021-06-09");
 	Contrat u = new Contrat(1, date,"CDD",200);
 	iemployeservice.ajouterContrat(u);
-	l.info("ajout avec succés de contrat: " , u.getReference());
+	logger.info("ajout avec succés de contrat: " , u.getReference());
 	}
 
 
@@ -84,6 +85,9 @@ public class ContratServiceImplTest {
 }
 
 	*/
+	
+
+
 /*
 	 @Test
 		public void deleteAllContratJPQL() {
@@ -101,7 +105,7 @@ public class ContratServiceImplTest {
 	Date date1= date.parse("2020-01-01");
 	Date date2= date.parse("2021-12-30");
 	cs.retrieveParDateJpql(date1,date2);
-	l.info("test retrieveParDateJpql avec succes");
+	logger.info("test retrieveParDateJpql avec succes");
 	}
 	
 	
