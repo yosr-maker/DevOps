@@ -50,7 +50,7 @@ public class ContratServiceImplTest {
 	}
 
 */
-	/*
+
 	@Test(timeout =2000)
 	public void testajouterContrat() throws ParseException {
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -60,7 +60,7 @@ public class ContratServiceImplTest {
 	l.info("ajout avec succés de contrat: " , u.getReference());
 	}
 
-*/
+
 	
 	/* @Test
 	public void testaffecterContratAEmploye() {
@@ -93,7 +93,7 @@ public class ContratServiceImplTest {
 				
 	 }
 	*/
-	/*
+
 
 	@Test(timeout =3000)
 	public void testretrieveParDateJpql() throws ParseException {
@@ -105,6 +105,5 @@ public class ContratServiceImplTest {
 	}
 	
 	
-	*/
 	
 }
