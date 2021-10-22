@@ -3,7 +3,9 @@ package tn.esprit.spring.services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,8 @@ public class EmployeServiceImpl implements IEmployeService {
 	ContratRepository contratRepoistory;
 	@Autowired
 	TimesheetRepository timesheetRepository;
+	
+	private static final Logger l = Logger.getLogger(EmployeServiceImpl.class);
 
 	public int ajouterEmploye(Employe employe) {
 		employeRepository.save(employe);
@@ -74,18 +78,34 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 	}
 
+
+	
 	public int ajouterContrat(Contrat contrat) {
+		l.info("ajouterContrat loading...");
 		contratRepoistory.save(contrat);
 		return contrat.getReference();
 	}
 
-	public void affecterContratAEmploye(int contratId, int employeId) {
-		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
-		Employe employeManagedEntity = employeRepository.findById(employeId).get();
 
-		contratManagedEntity.setEmploye(employeManagedEntity);
-		contratRepoistory.save(contratManagedEntity);
+	public void affecterContratAEmploye(int contratId, int employeId) {
+		l.info("affecterContratAEmploye loading...");
+
+		Optional<Contrat> value = contratRepoistory.findById(contratId);
+		Optional<Employe> valuee = employeRepository.findById(employeId);
+
 		
+		if (value.isPresent()) {
+			Contrat contratManagedEntity = value.get();
+		
+
+			if (valuee.isPresent()) {
+				Employe employeManagedEntity = valuee.get();
+				
+				contratManagedEntity.setEmploye(employeManagedEntity);
+				contratRepoistory.save(contratManagedEntity);
+			}
+		}
+
 	}
 
 	public String getEmployePrenomById(int employeId) {
@@ -107,9 +127,13 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public void deleteContratById(int contratId) {
-		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
+		Optional<Contrat> value = contratRepoistory.findById(contratId);
+
+		if (value.isPresent()) {
+			Contrat contratManagedEntity = value.get() ;
 		contratRepoistory.delete(contratManagedEntity);
 
+	}
 	}
 
 	public int getNombreEmployeJPQL() {
@@ -147,7 +171,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public List<Employe> getAllEmployes() {
-				return (List<Employe>) employeRepository.findAll();
+				return  employeRepository.findAll();
 	}
 
 }
